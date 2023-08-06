@@ -20,7 +20,7 @@
 .drawer-menu{
   z-index: 11;
   position: fixed;
-  left: -100px;
+  left: -200px;
   background-color: white;
   width: 0;
   height: 100%;
@@ -28,8 +28,9 @@
   padding: 0;
   transition: all .2s linear;
 }
-.checked:checked ~ .drawer-menu {
+body:has(input:checked) .drawer-menu {
   width: 100%;
+  top: 0;
   left:0;
 }
 #scroll{
@@ -37,4 +38,11 @@
 }
 #hide-scroll{
   overflow-y:hidden;
+}
+.navigation li:not(:first-child){
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid lightgrey;
+  margin-right: 20px;
+  font-weight:500;
 }
