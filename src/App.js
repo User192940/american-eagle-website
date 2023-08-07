@@ -2,16 +2,18 @@ import Home from './components/home';
 import { Promos } from './components/promos';
 import { Logo } from './components/logo';
 import { Footer } from './components/footer';
-import { DrawerMenu } from './components/drawerMenu';
+import {DrawerMenu} from './components/drawerMenu';
 import { AeNavbar } from './components/AeNavbar';
 import { AeHeader } from './components/AeHeader';
 import './App.css';
 import React, {useEffect, useState} from "react";
 import { Route, Routes } from "react-router-dom";
+import Register  from "./components/register";
+import Bag from "./components/bag";
+import SignIn from './components/signIn';
 
 function App() {
   const [top, setTop] = useState(false);
-  const [scroll, setScroll] = useState(true);
   useEffect(() => {
     if(typeof window !== "undefined"){
       window.addEventListener("scroll", () => {
@@ -25,9 +27,13 @@ function App() {
       <AeNavbar   top={top} changeUI={changeUI}  />
         <DrawerMenu   changeScroll={changeScroll}  />
         <Logo   top={top}  />
-        <Promos     />
+        <Promos/>
         <Routes>
-          <Route exact path="/" element={<Home/>}/>                    
+          <Route exact path="/" element={<Home/>}/> 
+          <Route exact path="/home" element={<Home/>}/>
+          <Route exact path="/register" element={<Register/>}/>  
+          <Route exact path="/signIn" element={<SignIn/>}/>
+          <Route exact path="/bag" element={<Bag/>}/>                
         </Routes>
         <Footer/>
     </div>

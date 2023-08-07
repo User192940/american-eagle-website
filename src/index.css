@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  scrollbar-width: thin;
+}
 #top{
   position: fixed;
   top:0 !important;
@@ -17,6 +20,9 @@
 .footer{
   border-top: 1px solid lightgrey;
 }
+#shadow-host-companion{
+  display: none;
+}
 .drawer-menu{
   z-index: 11;
   position: fixed;
@@ -27,6 +33,22 @@
   margin: 0;
   padding: 0;
   transition: all .2s linear;
+}
+.popup-login{
+  z-index: 11;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  transition: all .2s linear;
+}
+.popup-login-active{
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 body:has(input:checked) .drawer-menu {
   width: 100%;
@@ -45,4 +67,79 @@ body:has(input:checked) .drawer-menu {
   border-bottom: 1px solid lightgrey;
   margin-right: 20px;
   font-weight:500;
+}
+section {
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  padding-bottom: 1rem;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+font-family: 'Nunito', sans-serif;
+font-size: 22px;
+padding: 0.25rem;
+border-radius: 0.5rem;
+border: 1px solid black;
+}
+.instructions {
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  background: #000;
+  color: #fff;
+  padding: 0.25rem;
+  position: relative;
+  bottom: -10px;
+}
+
+.instructions > svg {
+  margin-right: 0.25rem;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+.hide {
+  display: none;
+}
+button{
+  border: 1px solid black;
+}
+.valid {
+  color: limegreen;
+  margin-left: 0.25rem;
+}
+
+.invalid {
+  color: red;
+  margin-left: 0.25rem;
+}
+
+.errmsg {
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.empty-cart-section{
+  border: 1px solid black;
+}
+.cart-button{
+  border-radius: 20px;
+  margin-top: 12px;
 }
