@@ -28,11 +28,12 @@ function App() {
         <DrawerMenu   changeScroll={changeScroll}  />
         <Logo   top={top}  />
         <Promos/>
+        <SignIn/>
         <Routes>
           <Route exact path="/" element={<Home/>}/> 
           <Route exact path="/home" element={<Home/>}/>
           <Route exact path="/register" element={<Register/>}/>  
-          <Route exact path="/signIn" element={<SignIn/>}/>
+          {/* <Route exact path="/signIn" element={<SignIn/>}/> */}
           <Route exact path="/bag" element={<Bag/>}/>                
         </Routes>
         <Footer/>

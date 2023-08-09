@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 const Bag = () => {
+    function loginPop(){
+        const login = document.querySelector('.popup-login')
+    }
     return(
         <div className="flex w-full flex-col bag">
             <span className="ml-[2.5%] mt-4 mb-4 w-full text-left text-3xl font-medium">Shopping Bag</span>
@@ -12,7 +15,7 @@ const Bag = () => {
                 Sign in to enjoy faster checkout, track your order and earn rewards!
                 </p>
                 <div className="w-24">
-                    <button className='p-2 w-24 bg-white rounded-3xl text-sm'>
+                    <button onClick={loginPop} className='p-2 w-24 bg-white rounded-3xl text-sm'>
                         <Link to="../signIn">
                         Sign In
                         </Link>
