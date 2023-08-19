@@ -2,23 +2,23 @@ import { faShoppingBag, faShoppingBasket, faShoppingCart } from "@fortawesome/fr
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
+import SignIn from './signIn';
+import { useEffect } from "react";
 
-const Bag = () => {
-    function loginPop(){
-        const login = document.querySelector('.popup-login')
-    }
-    return(
-        <div className="flex w-full flex-col bag">
+function Bag(){
+    const [login, setLogin] = useState(false);
+    return (
+        <div className='flex w-full flex-col bag'>
+            <SignIn trigger={login} setTrigger={setLogin}/>
             <span className="ml-[2.5%] mt-4 mb-4 w-full text-left text-3xl font-medium">Shopping Bag</span>
             <div className="flex flex-row mr-[2.5%] mb-8 ml-[2.5%]">
                 <p className="text-sm text-left text-gray-500 mr-2">
                 Sign in to enjoy faster checkout, track your order and earn rewards!
                 </p>
                 <div className="w-24">
-                    <button onClick={loginPop} className='p-2 w-24 bg-white rounded-3xl text-sm'>
-                        <Link to="../signIn">
-                        Sign In
-                        </Link>
+                    <button onClick={() => setLogin(true)} className='p-2 w-24 bg-white rounded-3xl text-sm'>
+                    Sign In
                     </button>
                 </div>
             </div>

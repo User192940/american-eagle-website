@@ -14,6 +14,7 @@ import SignIn from './components/signIn';
 
 function App() {
   const [top, setTop] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   useEffect(() => {
     if(typeof window !== "undefined"){
       window.addEventListener("scroll", () => {
@@ -27,13 +28,12 @@ function App() {
       <AeNavbar   top={top} changeUI={changeUI}  />
         <DrawerMenu   changeScroll={changeScroll}  />
         <Logo   top={top}  />
+        <SignIn open={openModal}/>
         <Promos/>
-        <SignIn/>
         <Routes>
           <Route exact path="/" element={<Home/>}/> 
           <Route exact path="/home" element={<Home/>}/>
           <Route exact path="/register" element={<Register/>}/>  
-          {/* <Route exact path="/signIn" element={<SignIn/>}/> */}
           <Route exact path="/bag" element={<Bag/>}/>                
         </Routes>
         <Footer/>

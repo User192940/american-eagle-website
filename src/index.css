@@ -4,6 +4,7 @@
 
 body {
   scrollbar-width: thin;
+  overflow-x: hidden;
 }
 #top{
   position: fixed;
@@ -43,17 +44,27 @@ body {
   height: 0;
   margin: 0;
   padding: 0;
-  transition: all .2s linear;
+  transition: all 1s linear;
 }
 .popup-login-active{
+  z-index: 11;
+  position: fixed;
+  background-color: white;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  transition: all 1s linear;
   width: 100%;
   height: 100%;
-  bottom: 0;
+  -moz-transition: all 1s linear; /* Firefox 4 */
+    -webkit-transition: all 1s linear; /* Safari 和 Chrome */
+    -o-transition: all 1s linear; /* Opera */
 }
 .login{
   height: 230px;
 }
-.login input{
+form input{
   margin-left: 2.5%;
   margin-right: 2.5%;
 }
@@ -102,9 +113,16 @@ input[type="password"],
 textarea {
 font-family: 'Nunito', sans-serif;
 font-size: 22px;
-padding: 0.25rem;
-border-radius: 0.5rem;
-border: 1px solid black;
+padding: 4px 24px;
+border-radius: .25rem;
+border: 1px solid lightgrey;
+}
+input::placeholder{
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+}
+form button:hover{
+  box-shadow: inset 0 0 0 2px #555;
 }
 .instructions {
   font-size: 0.75rem;
