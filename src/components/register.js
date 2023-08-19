@@ -1,13 +1,13 @@
 import { useEffect, useState, useRef } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-//import axios from "./api/axios";
+import $ from "jquery";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = '/register';
 
-const Register = () => {
+const Register = ({open, onClose, onOpen}) => {
 
     const userRef = useRef(); //set user 
     const errRef = useRef(); // set error for screen reader
@@ -26,11 +26,16 @@ const Register = () => {
     
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
-
-    useEffect(() => {
-        userRef.current.focus();
-    }, [])
+    const [result, setResult] = useState('');
+    // useEffect(() => {
+    //     userRef.current.focus();
+    // }, [])
     
+    function openSignIn(){
+        onClose();
+        onOpen();
+    }
+
     useEffect(() => {
         const result = USER_REGEX.test(user);
         setValidName(result);
@@ -49,6 +54,15 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // if button enabled with JS hack
+        const form = e.target;
+        $.ajax({
+            type: "POST",
+            url: form.attr('action'),
+            data: form.serialize(),
+            success(data) {
+                setResult(data);
+            }
+        });
         const v1 = USER_REGEX.test(user);
         const v2 = PWD_REGEX.test(pwd);
         if (!v1 || !v2) {
@@ -84,8 +98,14 @@ const Register = () => {
         // }
     }
 
-    return (
-        <>
+    return (open) ? (
+        <div className={`${(open) ? "popup-login-active" : "popup login"}`}>
+            <div className="justify-end flex w-full mt-8 h-[18px]">
+                <h2>{result}</h2>
+        <button onClick={onClose} className='w-[18px] h-[18px] mr-6'>
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5 5L19 19M5 19L19 5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>                
+        </button>
+        </div>
             {/* {success ? (
                 <section>
                     <h1>Success!</h1>
@@ -96,16 +116,19 @@ const Register = () => {
             ) : ( */}
                 <section>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Register</h1>
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">
-                            Username:
-                            <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validName || !user ? "hide" : "invalid"} />
-                        </label>
+                    <div className="flex w-full justify-between px-[2.5%] mb-6">
+                        <span className="font-semibold text-lg">Account Details</span>
+                        <span className="text-xs text-gray-600">Required</span>
+                    </div>
+                    <form 
+                    action="http://localhost:8000/server.php"
+                    method="post"
+                    onSubmit={handleSubmit}
+                    >
                         <input
                             type="text"
                             id="username"
+                            placeholder="Email"
                             ref={userRef}
                             autoComplete="off"
                             onChange={(e) => setUser(e.target.value)}
@@ -122,15 +145,11 @@ const Register = () => {
                             Must begin with a letter.<br />
                             Letters, numbers, underscores, hyphens allowed.
                         </p>
-
-                        <label htmlFor="password">
-                            Password:
-                            <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} />
-                        </label>
                         <input
+                        className="mt-5"
                             type="password"
                             id="password"
+                            placeholder="Password"
                             onChange={(e) => setPwd(e.target.value)}
                             value={pwd}
                             required
@@ -145,16 +164,11 @@ const Register = () => {
                             Must include uppercase and lowercase letters, a number and a special character.<br />
                             Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
                         </p>
-
-
-                        <label htmlFor="confirm_pwd">
-                            Confirm Password:
-                            <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
-                        </label>
                         <input
+                        className="mt-5"
                             type="password"
                             id="confirm_pwd"
+                            placeholder="Confirm Password"
                             onChange={(e) => setMatchPwd(e.target.value)}
                             value={matchPwd}
                             required
@@ -167,19 +181,19 @@ const Register = () => {
                             <FontAwesomeIcon icon={faInfoCircle} />
                             Must match the first password input field.
                         </p>
-
-                        <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
                     </form>
+                    <button disabled={!validName || !validPwd || !validMatch ? true : false} type="submit" className="p-3 w-[95%] ml-[2.5%] mr-[2.5%] bg-[#24272a] text-white rounded-full font-semibold">
+                Sign Up
+            </button>
                     <p>
                         Already registered?<br />
-                        <span className="line">
-                            {/*put router link here*/}
-                            <a href="#">Sign In</a>
-                        </span>
+                        <button onClick={openSignIn} className="p-3 mt-4 w-[95%] ml-[2.5%] mr-[2.5%] bg-white text-black rounded-full font-semibold">
+                Sign In
+            </button>
                     </p>
                 </section>
             {/* )} */}
-        </>
-    )
+        </div>
+    ) : "";
 }
 export default Register

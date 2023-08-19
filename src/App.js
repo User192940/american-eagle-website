@@ -11,10 +11,12 @@ import { Route, Routes } from "react-router-dom";
 import Register  from "./components/register";
 import Bag from "./components/bag";
 import SignIn from './components/signIn';
+import ScrollToTop from './components/setTop';
 
 function App() {
   const [top, setTop] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [openRegister, setOpenRegister] = useState(false);
   useEffect(() => {
     if(typeof window !== "undefined"){
       window.addEventListener("scroll", () => {
@@ -28,14 +30,16 @@ function App() {
       <AeNavbar   top={top} changeUI={changeUI}  />
         <DrawerMenu   changeScroll={changeScroll}  />
         <Logo   top={top}  />
-        <SignIn open={openModal}/>
+        <SignIn open={openModal} onClose={() => setOpenModal(false)} onOpen={() => setOpenRegister(true)}/>
+        <Register open={openRegister} onClose={() => setOpenRegister(false)} onOpen={() => setOpenModal(true)}/>
         <Promos/>
         <Routes>
           <Route exact path="/" element={<Home/>}/> 
           <Route exact path="/home" element={<Home/>}/>
           <Route exact path="/register" element={<Register/>}/>  
-          <Route exact path="/bag" element={<Bag/>}/>                
+          <Route exact path="/bag" element={<Bag open={openModal} onOpen={() => setOpenModal(true)}/>}/>                
         </Routes>
+        <ScrollToTop/>
         <Footer/>
     </div>
   );
