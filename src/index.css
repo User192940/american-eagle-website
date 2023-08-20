@@ -65,6 +65,34 @@ body {
   padding: 0;
   transition: all .2s linear;
 }
+.bl{
+  border-bottom: 1px solid #eee;
+}
+.account{
+  z-index: 11;
+  position: fixed;
+  right: -200px;
+  background-color: white;
+  width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  transition: all .2s linear;
+}
+.account-active{
+  z-index: 11;
+  position: fixed;
+  background-color: white;
+  width: 70%;
+  margin: 0;
+  top: 0;
+  right: 0;
+  transition: all .2s linear;
+  height: 100%;
+  -moz-transition: all .2s linear; /* Firefox 4 */
+    -webkit-transition: all .2s linear; /* Safari 和 Chrome */
+    -o-transition: all .2s linear; /* Opera */
+}
 .popup-login{
   z-index: 11;
   position: fixed;
@@ -138,7 +166,7 @@ form {
   padding-bottom: 1rem;
 }
 
-input[type="text"],
+input[type="email"],
 input[type="password"],
 textarea {
 font-family: 'Nunito', sans-serif;

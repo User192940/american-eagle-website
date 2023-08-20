@@ -12,11 +12,14 @@ import Register  from "./components/register";
 import Bag from "./components/bag";
 import SignIn from './components/signIn';
 import ScrollToTop from './components/setTop';
+import { AuthContextProvider } from './context/AuthContext';
+import {Account} from './components/account';
 
 function App() {
   const [top, setTop] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
+  const [openAccount, setOpenAccount] = useState(false);
   useEffect(() => {
     if(typeof window !== "undefined"){
       window.addEventListener("scroll", () => {
@@ -26,12 +29,14 @@ function App() {
   }, [])
   return (
     <div className="App">
+      <AuthContextProvider>
       <AeHeader     />
-      <AeNavbar   top={top} changeUI={changeUI}  />
+      <AeNavbar   top={top} changeUI={changeUI} open={openAccount} onOpen={() => setOpenAccount(true)}/>
         <DrawerMenu   changeScroll={changeScroll}  />
         <Logo   top={top}  />
-        <SignIn open={openModal} onClose={() => setOpenModal(false)} onOpen={() => setOpenRegister(true)}/>
+        <SignIn onClose={() => setOpenModal(false)} onOpen={() => setOpenRegister(true)}/>
         <Register open={openRegister} onClose={() => setOpenRegister(false)} onOpen={() => setOpenModal(true)}/>
+        <Account open={openAccount} onClose={() => setOpenAccount(false)} openSignIn={() => setOpenModal(true)}/>
         <Promos/>
         <Routes>
           <Route exact path="/" element={<Home/>}/> 
@@ -39,6 +44,7 @@ function App() {
           <Route exact path="/register" element={<Register/>}/>  
           <Route exact path="/bag" element={<Bag open={openModal} onOpen={() => setOpenModal(true)}/>}/>                
         </Routes>
+        </AuthContextProvider>
         <ScrollToTop/>
         <Footer/>
     </div>

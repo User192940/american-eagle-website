@@ -5,12 +5,16 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import SignIn from './signIn';
 import { useEffect } from "react";
+import { UserAuth } from "../context/AuthContext";
 
 function Bag({onOpen}){
+    const {user, logOut} = UserAuth()
+    console.log(user)
     return (
         <div className='flex w-full flex-col bag'>
-            <span className="ml-[2.5%] mt-4 mb-4 w-full text-left text-3xl font-medium">Shopping Bag</span>
-            <div className="flex flex-row mr-[2.5%] mb-8 ml-[2.5%]">
+            <span className={`${(user) ? "hidden " : ""}ml-[2.5%] mt-4 mb-4 w-full text-left text-3xl font-medium`}>Shopping Bag</span>
+            <span className={`${(user) ? "" : "hidden"}ml-[2.5%] mt-4 mb-4 w-full text-left text-3xl font-medium`}>{user.name}'s Bag</span>
+            <div className={`${(user) ? "hidden " : ""}flex flex-row mr-[2.5%] mb-8 ml-[2.5%]`}>
                 <p className="text-sm text-left text-gray-500 mr-2">
                 Sign in to enjoy faster checkout, track your order and earn rewards!
                 </p>
