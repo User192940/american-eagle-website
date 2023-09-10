@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
     export function AeHeader({}) {
-      return (<nav className='ae-aerie-topbar'>
+      return (<nav className='ae-aerie-topbar lg:hidden'>
         <ul className="flex h-10 w-full">
           <li className="w-3/5 pt-2 text-blue-950">
           <Link to="/">

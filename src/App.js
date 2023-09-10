@@ -34,9 +34,9 @@ function App() {
       <AeNavbar   top={top} changeUI={changeUI} open={openAccount} onOpen={() => setOpenAccount(true)}/>
         <DrawerMenu   changeScroll={changeScroll}  />
         <Logo   top={top}  />
-        <SignIn onClose={() => setOpenModal(false)} onOpen={() => setOpenRegister(true)}/>
+        <SignIn open={openModal} onClose={() => setOpenModal(false)} onOpen={() => setOpenRegister(true)}/>
         <Register open={openRegister} onClose={() => setOpenRegister(false)} onOpen={() => setOpenModal(true)}/>
-        <Account open={openAccount} onClose={() => setOpenAccount(false)} openSignIn={() => setOpenModal(true)}/>
+        <Account open={openAccount} onClose={() => setOpenAccount(false)} openCreateAccount={() => setOpenRegister(true)} openSignIn={() => setOpenModal(true)}/>
         <Promos/>
         <Routes>
           <Route exact path="/" element={<Home/>}/> 

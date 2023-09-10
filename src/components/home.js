@@ -5,7 +5,8 @@ const Home = () => {
 
   return (<div>
     <div className="flex w-full h-auto pb-10">
-          <img alt="women holding hands" src="https://s7d2.scene7.com/is/image/aeo/20230802-aehp-extra-25-sm?scl=1&qlt=60&fmt=webp"></img>
+          <img className="lg:hidden" alt="women holding hands" src="https://s7d2.scene7.com/is/image/aeo/20230802-aehp-extra-25-sm?scl=1&qlt=60&fmt=webp"></img>
+          <img className="hidden lg:visible" alt="women holding hands" src="./public/group-wide.webp"></img>
           <div className="absolute w-full items-center mt-8">
             <div className='text-white text-[32px] font-bold mb-2'>
             25% Off All Jeans & Cargo Pants

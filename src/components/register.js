@@ -10,6 +10,8 @@ const REGISTER_URL = '/register';
 
 const Register = ({open, onClose, onOpen}) => {
     const [email, setEmail] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
     const {user, signUp} = UserAuth()
     const [password, setPassword] = useState('')
     const [data, setData] = useState('')
@@ -98,9 +100,9 @@ const Register = ({open, onClose, onOpen}) => {
                 </section>
             ) : ( */}
                 <section>
-                    <div className="flex w-full justify-between px-[2.5%] mb-6">
+                    <div className="flex w-full px-[2.5%] mb-6 align-middle">
                         <span className="font-semibold text-lg">Account Details</span>
-                        <span className="text-xs text-gray-600">Required</span>
+                        <span className="text-xs text-gray-600 ml-auto pt-1">Required</span>
                     </div>
                     <form 
                     method="post"
@@ -118,11 +120,38 @@ const Register = ({open, onClose, onOpen}) => {
                         <p className={`${(data) ? "show" : "hide"}`}>
                             {data}
                         </p>
+                        <div className="flex flex-row justify-between">
+                        <input
+                        className="formIn mt-5 w-[48%]"
+                        type="text"
+                        id="fname"
+                        required
+                        placeholder="First Name"
+                        onChange={(e) => setFirstName(e.target.value)}
+                        />
+                        <input
+                        className="formIn mt-5 w-[48%]"
+                        type="text"
+                        id="lname"
+                        required
+                        placeholder="Last Name"
+                        onChange={(e) => setLastName(e.target.value)}
+                        />
+                        </div>
                         <input
                         className="mt-5"
                             type="password"
                             id="password"
                             placeholder="Password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        <p className="ml-[2.5%] pt-1 text-left text-xs text-gray-600">8-25 characters including one letter and one number</p>
+                        <input
+                        className="my-5"
+                            type="password"
+                            id="conf-password"
+                            placeholder="Confirm Password"
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
